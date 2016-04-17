@@ -12,6 +12,44 @@ typedef struct _avlNode
 } avlNode,* avlTree;
 
 
+void avl_init(avlTree * tree)
+{
+
+
+
+}
+
+void left_rotate(avlTree * tree)
+{
+
+}
+
+void right_rotate(avlTree * tree)
+{
+
+
+
+}
+
+void avl_insert(avlTree * tree,int val)
+{
+
+
+}
+
+void avl_delete(avlTree * tree,int val)
+{
+
+
+
+}
+
+int node_height(avlTree * tree,avlNode node)
+{
+
+
+}
+
 int main(int argc,char ** argv)
 {
 
