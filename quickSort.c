@@ -21,10 +21,14 @@ int partition(int * buffer,int left,int right)
 
 	for (;;)
 	{
+		//can not add i < j since we cann't exchange the i with right 
+		//in case the right element is in the correct position
 		while (buffer[++i] < pivot);
 		while (buffer[--j] > pivot) if (i>=j) break;
 		if (j>i)
 			swap_element(buffer,i,j);
+		//cann't only break if the j == i in case the the right element is in the correct position
+		// in this condition the value of i is larger than value of j
 		else
 			break;
 	}
@@ -79,6 +83,7 @@ int main(int argc,char ** argv)
 	for (i=0;i<num;i++)
 		buffer[i] = rand() % 1000;
 	quicksort(buffer,0,num-1);
+	print_array(buffer,num);
 	free(buffer);
 
 	return 0;
