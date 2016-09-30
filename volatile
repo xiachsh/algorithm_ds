@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+
+#include <limits.h>
+#include <string.h>
+#include <unistd.h>
+
+void foo(void)
+{
+	uint8_t * pReg = (uint8_t *) 0x1234;
+	
+
+	while (*pReg == 180) 
+	{
+		int x = 0;
+	}
+}
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+
+#include <limits.h>
+#include <string.h>
+#include <unistd.h>
+
+void foo(void)
+{
+	volatile	uint8_t * pReg = (uint8_t *) 0x1234;
+	
+
+	while (*pReg == 180) 
+	{
+		int x = 0;
+	}
+}
+
+
+
+
+############################gcc -O3 -S x.c########################### 
+
+	.file	"x.c"
+	.text
+	.p2align 4,,15
+.globl foo
+	.type	foo, @function
+foo:
+.LFB30:
+	.cfi_startproc
+	.p2align 4,,10
+	.p2align 3
+.L2:
+	cmpb	$-76, 4660        --------------------------> compare them directly
+	je	.L2
+	rep
+	ret
+	.cfi_endproc
+.LFE30:
+	.size	foo, .-foo
+	.ident	"GCC: (GNU) 4.4.7 20120313 (Red Hat 4.4.7-16)"
+	.section	.note.GNU-stack,"",@progbits
+
+
+
+
+############################gcc -O3 -S y.c########################### 
+
+	.file	"y.c"
+	.text
+	.p2align 4,,15
+.globl foo
+	.type	foo, @function
+foo:
+.LFB30:
+	.cfi_startproc
+	.p2align 4,,10
+	.p2align 3
+.L2:
+	movzbl	4660, %eax  ------------> load from main memory address 
+	cmpb	$-76, %al
+	je	.L2
+	rep
+	ret
+	.cfi_endproc
+.LFE30:
+	.size	foo, .-foo
+	.ident	"GCC: (GNU) 4.4.7 20120313 (Red Hat 4.4.7-16)"
+	.section	.note.GNU-stack,"",@progbits

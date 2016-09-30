@@ -1,0 +1,19 @@
+#!/bin/bash
+
+gcc -g -c main.c -o main.o
+gcc -g -c power_slow.c -o power_slow.o
+gcc -g -c power.c -o power_fast.o
+
+gcc -g -o slow main.o power_slow.o
+
+######## weak symbol in power_slow.o overrided by strong one in power_fast.o ####
+echo "weak symbol in power_slow.o overrided by strong one in power_fast.o" 
+gcc -g -o fast main.o power_fast.o power_slow.o   
+
+echo "Executing command slow 3"
+./slow 3 
+
+
+echo  "+++++++++++++++++beautiful  seperator+++++++++++++"
+echo "Executing command slow 4"
+./fast 4
