@@ -1,0 +1,18 @@
+gcc -g -o main main.c
+gcc -g -shared -o myStrcmp.so strcmp.c
+
+
+
+echo "Excuting main w/o LD_PRELOAD"
+./main 
+
+
+echo 
+echo
+
+export LD_PRELOAD="./myStrcmp.so" 
+echo "Excuting main w/ LD_PRELOAD set to ./myStrcmp.so"
+env | grep LD_PRELOAD
+./main
+
+unset LD_PRELOAD
