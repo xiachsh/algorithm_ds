@@ -67,6 +67,22 @@ void usage(int argc,char ** argv)
 
 
 
+void verify(int * buffer,int size)
+{
+	int i = 0;
+	for (i=0;i<size-1;i++) {
+		if(buffer[i] > buffer[i+1]) {
+			printf("%d > %d\n",buffer[i],buffer[i+1]);
+			printf("sort failure\n");
+			exit(1);
+		}
+			
+	}
+}
+
+
+
+
 
 int main(int argc,char ** argv)
 {
@@ -84,6 +100,7 @@ int main(int argc,char ** argv)
 		buffer[i] = rand() % 1000;
 	quicksort(buffer,0,num-1);
 	print_array(buffer,num);
+	verify(buffer,num);	
 	free(buffer);
 
 	return 0;
